@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>兼聴義塾｜今月の問い</title>
+<meta name="description" content="月に一つ問いを置き、届いた一言を一枚の地図にして返す場。一行でいい。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Yuji+Syuku&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#33415e;      /* 文字：藍鼠 */
+    --ink-2:#6b7386;    /* 補助の文字 */
+    --ai:#3d4f7c;       /* ボタンの藍 */
+    --seiji:#3f8f86;    /* 差し色：青磁（札・点・受け取る） */
+    --paper:#ffffff;
+    --haiiro:#f4f3ef;   /* 区画の薄灰 */
+    --line:#e3e1db;
+    --r:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+    font-size:17px;line-height:1.9;letter-spacing:.02em;-webkit-font-smoothing:antialiased}
+  a{color:var(--ink)}
+  .wrap{max-width:640px;margin:0 auto;padding:0 20px}
+
+  /* ヘッダー */
+  header{padding:22px 0 6px}
+  .brand{font-family:"Yuji Syuku","Hiragino Mincho ProN",serif;font-weight:400;font-size:1.55rem;
+    letter-spacing:.04em;color:#1a1a1a;text-decoration:none}
+
+  /* 1画面目：問い＋入力欄 */
+  .toi{padding:22px 0 10px}
+  .go{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--seiji);font-weight:700;letter-spacing:.08em}
+  .go::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--seiji)}
+  h1{font-size:clamp(1.7rem,6.2vw,2.3rem);line-height:1.45;font-weight:900;margin:10px 0 18px;letter-spacing:.01em}
+  .hint{color:var(--ink-2);font-size:.95rem;margin:0 0 10px}
+  textarea{width:100%;min-height:110px;padding:16px 18px;font:inherit;font-size:1.05rem;line-height:1.7;color:var(--ink);
+    background:var(--haiiro);border:1.5px solid var(--line);border-radius:var(--r);resize:vertical;outline:none}
+  textarea:focus{border-color:var(--ai);background:#fff}
+  .send{display:block;width:100%;margin-top:12px;padding:16px;font:inherit;font-size:1.08rem;font-weight:700;letter-spacing:.06em;
+    color:#fff;background:var(--ai);border:0;border-radius:var(--r);cursor:pointer}
+  .send:active{transform:translateY(1px)}
+  .alt{text-align:center;font-size:.9rem;color:var(--ink-2);margin:10px 0 0}
+  .alt a{color:var(--ink-2)}
+
+  /* 三つの札 */
+  .fuda{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:6px;margin:26px 0 8px}
+  .fuda .f{background:var(--haiiro);border-radius:14px;padding:12px 6px;text-align:center;font-weight:700;font-size:.95rem;
+    border-top:4px solid var(--seiji)}
+  .fuda .f small{display:block;font-weight:500;font-size:.78rem;color:var(--ink-2);margin-top:2px;letter-spacing:0}
+  .fuda .arr{color:var(--seiji);font-weight:900}
+
+  /* 区画 */
+  section{padding:30px 0 10px;border-top:1px solid var(--line);margin-top:26px}
+  h2{font-size:1.2rem;font-weight:900;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--seiji);flex:none}
+  p{margin:0 0 12px}
+  .box{background:var(--haiiro);border-radius:var(--r);padding:18px 20px}
+  .map{width:100%;border-radius:var(--r);display:block;background:var(--haiiro);aspect-ratio:1/1;object-fit:cover}
+  .note{font-size:.9rem;color:var(--ink-2)}
+  .video{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:var(--haiiro)}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .links a{text-decoration:none;font-weight:700;padding:10px 16px;border:1.5px solid var(--line);border-radius:999px;font-size:.95rem}
+  .uketoru{display:block;text-align:center;padding:16px;font-weight:700;font-size:1.05rem;letter-spacing:.06em;
+    color:#fff;background:var(--seiji);border-radius:var(--r);text-decoration:none;margin-top:14px}
+
+  /* 奥 */
+  details{border-top:1px solid var(--line);padding:14px 0}
+  details:last-of-type{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"＋";color:var(--ink-2)}
+  details[open] summary::after{content:"－"}
+  .oku{padding-top:10px;font-size:.98rem}
+  .oku .sign{display:flex;align-items:center;gap:12px;margin-top:14px;color:var(--ink-2);font-size:.9rem}
+  .oku .sign img{width:44px;height:44px;border-radius:50%;background:var(--haiiro)}
+
+  footer{padding:30px 0 110px;color:var(--ink-2);font-size:.85rem;border-top:1px solid var(--line);margin-top:30px}
+
+  /* 下に付いてくる「一言を送る」 */
+  .sticky{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line);
+    transform:translateY(110%);transition:transform .25s}
+  .sticky.show{transform:none}
+  .sticky a{display:block;max-width:640px;margin:0 auto;text-align:center;padding:14px;color:#fff;background:var(--ai);
+    border-radius:var(--r);font-weight:700;letter-spacing:.06em;text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <a class="brand" href="/">兼聴義塾</a>
+</header>
+
+<!-- ===== 1画面目：今月の問い ＋ 一言 ===== -->
+<main class="wrap">
+  <div class="toi" id="toi">
+    <span class="go">第1号の問い</span>
+    <h1 id="toi-text">10年後、いちばん怖いのは何ですか</h1>
+    <p class="hint">一行でいいです。返事はしません。月末に、集まった一言を一枚の地図にして返します。</p>
+    <form id="hitokoto" onsubmit="return sendHitokoto(event)">
+      <textarea id="hitokoto-text" placeholder="ここに一言"></textarea>
+      <button class="send" type="submit">一言を送る</button>
+    </form>
+    <p class="alt">書いた文を持って、送る画面が開きます。開かないときは <a id="form-link" href="#" target="_blank" rel="noopener">こちら</a></p>
+
+    <div class="fuda" aria-label="問い、一言、地図の順">
+      <div class="f">問い<small>月に一つ</small></div><div class="arr">→</div>
+      <div class="f">一言<small>一行でいい</small></div><div class="arr">→</div>
+      <div class="f">地図<small>月末に返す</small></div>
+    </div>
+  </div>
+
+  <!-- ===== 先月の地図 ===== -->
+  <section id="chizu">
+    <h2>先月の地図</h2>
+    <img class="map" id="map-img" src="map-00.png" alt="地図０号">
+    <p class="note" id="map-note" style="margin-top:12px">
+      地図０号。まだ一言が届いていないので、公開されている調査の数字と、塾長の仮説と反論を下地にした地図です。来月から、あなたの一言が入ります。
+      素材：内閣府「国民生活に関する世論調査」（令和7年8月）、同「社会意識に関する世論調査」（令和7年10月）、日本財団「18歳意識調査」第78回。一言：0件。
+    </p>
+  </section>
+
+  <!-- ===== 聴く・読む ===== -->
+  <section id="kiku">
+    <h2>10分で聴ける</h2>
+    <div class="video"><iframe id="yt" src="" title="兼聴義塾 放送" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <p class="note" style="margin-top:12px">月のはじめに、塾長が自分の名前で考えを話します。月末に、地図を歩きます。</p>
+    <div class="links">
+      <a id="link-note" href="#" target="_blank" rel="noopener">note（本文と地図）</a>
+      <a id="link-x" href="#" target="_blank" rel="noopener">X（日々の問い）</a>
+      <a id="link-yt" href="#" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </section>
+
+  <!-- ===== 受け取る ===== -->
+  <section id="uketoru">
+    <h2>月末の地図を受け取る</h2>
+    <p>メールを一つ書いておくと、月末の地図と講義が届きます。一言を送らなくても、受け取るだけでかまいません。</p>
+    <a class="uketoru" id="uketoru-link" href="/uketoru/">受け取る</a>
+    <p class="note" style="margin-top:12px">メールは、月末の地図と講義を送るためにだけ使います。ほかの誰にも渡しません。やめたいときは「やめる」と一言返せば止めます。この場が閉じたら消します。</p>
+  </section>
+
+  <!-- ===== 奥 ===== -->
+  <section id="oku">
+    <h2>この場について</h2>
+    <details>
+      <summary>兼聴義塾（けんちょうぎじゅく）とは</summary>
+      <div class="oku">
+        <!-- ▼ 趣意書本文（塾長が書く）をここに。署名は実名＋塾長 -->
+        <p>（趣意書の本文をここに入れる）</p>
+        <div class="sign"><img src="jukucho-round.png" alt=""><span>（署名）　兼聴義塾 塾長</span></div>
+      </div>
+    </details>
+    <details>
+      <summary>守ること</summary>
+      <div class="oku">
+        <!-- ▼ 憲章本文（2026-10-22版）をここに -->
+        <p>（憲章の本文をここに入れる）</p>
+      </div>
+    </details>
+    <details>
+      <summary>連絡先の扱い</summary>
+      <div class="oku">
+        <p>メールは書かなくて構いません。書いた場合は、月末の地図と講義を送るためにだけ使います。ほかの誰にも渡しません。やめたいときは「やめる」と一言返せば止めます。この場が閉じたら消します。</p>
+        <p>この場への連絡：<a href="mailto:kencho.gijuku@gmail.com">kencho.gijuku@gmail.com</a>（個別の返事はしないことがあります）</p>
+      </div>
+    </details>
+  </section>
+</main>
+
+<footer class="wrap">
+  地図はAIが整理し、運営が確認した。使った手順はnoteで公開する。<br>
+  © 兼聴義塾
+</footer>
+
+<div class="sticky" id="sticky"><a href="#toi">一言を送る</a></div>
+
+<script>
+/* ===== 月替わりで差し替える箇所はここだけ ===== */
+const CONFIG = {
+  formUrl:  "FORM_URL",     // 今月の「一言」フォームの viewform URL（…/viewform）
+  entryId:  "ENTRY_ID",     // 設問1（問い）の entry.XXXXXXXXX の数字
+  videoId:  "VIDEO_ID",     // 最新回の YouTube 動画ID
+  noteUrl:  "https://note.com/kencho_gijuku",
+  xUrl:     "https://x.com/kencho_gijuku",
+  ytUrl:    "https://www.youtube.com/@kencho_gijuku",
+};
+/* ============================================ */
+
+function formLink(text){
+  const base = CONFIG.formUrl.replace(/\?.*$/,"");
+  const q = text ? "?usp=pp_url&entry." + CONFIG.entryId + "=" + encodeURIComponent(text) : "";
+  return base + q;
+}
+function sendHitokoto(e){
+  e.preventDefault();
+  const t = document.getElementById("hitokoto-text").value.trim();
+  window.open(formLink(t), "_blank", "noopener");
+  return false;
+}
+document.getElementById("form-link").href = formLink("");
+document.getElementById("link-note").href = CONFIG.noteUrl;
+document.getElementById("link-x").href = CONFIG.xUrl;
+document.getElementById("link-yt").href = CONFIG.ytUrl;
+if (CONFIG.videoId && CONFIG.videoId !== "VIDEO_ID") {
+  document.getElementById("yt").src = "https://www.youtube-nocookie.com/embed/" + CONFIG.videoId;
+} else {
+  document.getElementById("kiku").querySelector(".video").style.display = "none";
+}
+/* 入力欄が画面から外れたら、下に「一言を送る」を出す */
+const st = document.getElementById("sticky");
+new IntersectionObserver(([en]) => st.classList.toggle("show", !en.isIntersecting), {threshold: 0})
+  .observe(document.getElementById("hitokoto"));
+</script>
+</body>
+</html>
