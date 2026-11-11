@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>兼聴義塾｜今月の問い</title>
-<meta name="description" content="月に一つ問いを置き、届いた一言を一枚の地図にして返す場。一行でいい。">
+<title>兼聴義塾｜偏らずに聴き、良いものを選ぶ。</title>
+<meta name="description" content="月に一つ問いを置き、届いた一言を月末に一枚にまとめて返す場。右か左かの旗で選ばず、中身で選ぶ。一行でいい。名前はいりません。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Yuji+Syuku&display=swap" rel="stylesheet">
@@ -12,8 +12,9 @@
   :root{
     --ink:#33415e;      /* 文字：藍鼠 */
     --ink-2:#6b7386;    /* 補助の文字 */
-    --ai:#3d4f7c;       /* ボタンの藍 */
-    --seiji:#3f8f86;    /* 差し色：青磁（札・点・受け取る） */
+    --ai:#2f3c5a;       /* 問いの区画の地：濃い藍鼠 */
+    --seiji:#3f8f86;    /* 差し色：青磁 */
+    --seiji-usu:#e4f0ee;/* 青磁の薄い地 */
     --paper:#ffffff;
     --haiiro:#f4f3ef;   /* 区画の薄灰 */
     --line:#e3e1db;
@@ -23,54 +24,119 @@
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--paper);color:var(--ink);
     font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
-    font-size:17px;line-height:1.9;letter-spacing:.02em;-webkit-font-smoothing:antialiased}
-  a{color:var(--ink)}
-  .wrap{max-width:640px;margin:0 auto;padding:0 20px}
+    font-size:17px;line-height:1.9;letter-spacing:.02em;-webkit-font-smoothing:antialiased;
+    line-break:strict;word-break:auto-phrase;text-wrap:pretty}
+  a{color:inherit}
+  p{margin:0 0 14px}
+  [hidden]{display:none !important}
+  .wrap{max-width:640px;margin:0 auto;padding:0 22px}
 
-  /* ヘッダー */
-  header{padding:22px 0 6px}
-  .brand{font-family:"Yuji Syuku","Hiragino Mincho ProN",serif;font-weight:400;font-size:1.55rem;
-    letter-spacing:.04em;color:#1a1a1a;text-decoration:none}
+  /* 帯：区画ごとに白と薄灰を交互に敷く */
+  .band{padding:46px 0}
+  .band.gray{background:var(--haiiro)}
+  .band.ai{background:var(--ai);color:#fff}
+  .mado{display:block;font-size:.82rem;font-weight:700;letter-spacing:.14em;color:var(--seiji);margin-bottom:8px}
+  .band.ai .mado{color:#9fd0c9}
+  h2{font-size:clamp(1.45rem,5.6vw,1.8rem);font-weight:900;line-height:1.5;margin:0 0 18px;letter-spacing:.01em}
 
-  /* 1画面目：問い＋入力欄 */
-  .toi{padding:22px 0 10px}
-  .go{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--seiji);font-weight:700;letter-spacing:.08em}
-  .go::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--seiji)}
-  h1{font-size:clamp(1.7rem,6.2vw,2.3rem);line-height:1.45;font-weight:900;margin:10px 0 18px;letter-spacing:.01em}
-  .hint{color:var(--ink-2);font-size:.95rem;margin:0 0 10px}
-  textarea{width:100%;min-height:110px;padding:16px 18px;font:inherit;font-size:1.05rem;line-height:1.7;color:var(--ink);
-    background:var(--haiiro);border:1.5px solid var(--line);border-radius:var(--r);resize:vertical;outline:none}
-  textarea:focus{border-color:var(--ai);background:#fff}
-  .send{display:block;width:100%;margin-top:12px;padding:16px;font:inherit;font-size:1.08rem;font-weight:700;letter-spacing:.06em;
-    color:#fff;background:var(--ai);border:0;border-radius:var(--r);cursor:pointer}
-  .send:active{transform:translateY(1px)}
-  .alt{text-align:center;font-size:.9rem;color:var(--ink-2);margin:10px 0 0}
-  .alt a{color:var(--ink-2)}
+  /* ===== 表紙 ===== */
+  .hyoshi{padding:22px 0 44px}
+  .brand{font-family:"Yuji Syuku","Hiragino Mincho ProN",serif;font-size:1.55rem;letter-spacing:.04em;color:#1a1a1a;text-decoration:none}
+  .yomi{font-size:.78rem;color:var(--ink-2);letter-spacing:.1em;margin-left:10px}
+  .bou{width:44px;height:5px;border-radius:3px;background:var(--seiji);margin:40px 0 18px}
+  .catch{font-size:clamp(2.1rem,9vw,2.9rem);font-weight:900;line-height:1.38;margin:0 0 20px;letter-spacing:.01em}
+  .mijika{font-size:1.06rem;line-height:1.95;margin:0 0 24px}
+  .nanori{display:flex;align-items:center;gap:14px;margin:0 0 26px}
+  .nanori img{width:60px;height:60px;border-radius:50%;background:var(--haiiro);flex:none;border:2px solid var(--line)}
+  .nanori b{display:block;font-weight:700;line-height:1.5}
+  .nanori span{display:block;font-size:.93rem;color:var(--ink-2);line-height:1.6}
+  .btn{display:block;width:100%;text-align:center;padding:17px;font:inherit;font-size:1.08rem;font-weight:700;letter-spacing:.06em;
+    border:0;border-radius:var(--r);cursor:pointer;text-decoration:none}
+  .btn.koi{color:#fff;background:var(--ai)}
+  .btn.shiro{color:var(--ai);background:#fff}
+  .btn.ao{color:#fff;background:var(--seiji)}
+  .btn:active{transform:translateY(1px)}
+  .yomu{display:block;text-align:center;font-size:.92rem;color:var(--ink-2);margin-top:14px}
 
-  /* 三つの札 */
-  .fuda{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:6px;margin:26px 0 8px}
-  .fuda .f{background:var(--haiiro);border-radius:14px;padding:12px 6px;text-align:center;font-weight:700;font-size:.95rem;
-    border-top:4px solid var(--seiji)}
-  .fuda .f small{display:block;font-weight:500;font-size:.78rem;color:var(--ink-2);margin-top:2px;letter-spacing:0}
-  .fuda .arr{color:var(--seiji);font-weight:900}
+  /* ===== この場について ===== */
+  .tsuyoi{background:linear-gradient(transparent 62%, var(--seiji-usu) 62%);font-weight:700}
+  .hiki{margin:22px 0;padding:20px 22px;background:var(--seiji-usu);border-radius:var(--r);font-size:1.18rem;font-weight:900;line-height:1.7}
+  .hiki small{display:block;font-size:.9rem;font-weight:500;color:var(--ink-2);margin-top:6px;line-height:1.7}
 
-  /* 区画 */
-  section{padding:30px 0 10px;border-top:1px solid var(--line);margin-top:26px}
-  h2{font-size:1.2rem;font-weight:900;margin:0 0 14px;display:flex;align-items:center;gap:10px}
-  h2::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--seiji);flex:none}
-  p{margin:0 0 12px}
-  .box{background:var(--haiiro);border-radius:var(--r);padding:18px 20px}
+  /* ===== 地図 ===== */
+  .mihon{margin:20px 0 0;padding:22px 14px 16px;background:#fff;border-radius:var(--r);box-shadow:0 1px 0 var(--line)}
+  .mihon svg{display:block;width:100%;height:auto}
+  .mihon figcaption{font-size:.86rem;color:var(--ink-2);text-align:center;margin-top:10px;line-height:1.7}
+  h3{font-size:1.12rem;font-weight:900;margin:36px 0 14px;line-height:1.6}
+  .yoi{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .yoi li{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:var(--r);padding:18px 18px}
+  .yoi .n{flex:none;width:32px;height:32px;border-radius:50%;background:var(--seiji);color:#fff;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:.98rem;margin-top:2px}
+  .yoi b{display:block;font-weight:900;line-height:1.6;font-size:1.04rem}
+  .yoi span{display:block;font-size:.94rem;color:var(--ink-2);line-height:1.75;margin-top:2px}
+  .tame{margin:22px 0 0;padding-left:16px;border-left:4px solid var(--seiji)}
+  .tame b{display:block}
+
+  /* ===== 目指していること（年表） ===== */
+  .saki{list-style:none;margin:6px 0 0;padding:0;position:relative}
+  .saki::before{content:"";position:absolute;left:7px;top:10px;bottom:10px;width:2px;background:var(--line)}
+  .saki li{position:relative;padding:0 0 26px 34px}
+  .saki li:last-child{padding-bottom:0}
+  .saki li::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid var(--seiji)}
+  .saki li:last-child::before{background:var(--seiji)}
+  .saki b{display:block;font-weight:900;font-size:1.12rem;line-height:1.7}
+  .saki span{display:block;font-size:.98rem;line-height:1.85}
+
+  /* ===== しないこと（四つの札） ===== */
+  .shinai{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .shinai li{background:#fff;border-radius:16px;padding:16px 14px;font-weight:700;line-height:1.6;font-size:.98rem;display:flex;gap:10px;align-items:flex-start}
+  .shinai li::before{content:"";flex:none;width:18px;height:18px;margin-top:5px;border-radius:50%;
+    background:
+      linear-gradient(45deg, transparent 44%, var(--ink-2) 44%, var(--ink-2) 56%, transparent 56%),
+      linear-gradient(-45deg, transparent 44%, var(--ink-2) 44%, var(--ink-2) 56%, transparent 56%)}
+
+  /* ===== 今月の問い（ここだけ濃い地） ===== */
+  .band.ai{padding:52px 0 56px}
+  .band.ai h1{font-size:clamp(1.9rem,7.6vw,2.5rem);line-height:1.42;font-weight:900;margin:0 0 16px;letter-spacing:.01em}
+  .band.ai .hint{color:rgba(255,255,255,.86);margin:0 0 16px}
+  textarea{width:100%;min-height:120px;padding:16px 18px;font:inherit;font-size:1.05rem;line-height:1.7;color:var(--ink);
+    background:#fff;border:2px solid transparent;border-radius:var(--r);resize:vertical;outline:none}
+  textarea:focus{border-color:var(--seiji)}
+  .band.ai .btn{margin-top:16px}
+  /* いちばん押してほしいボタン：青磁の地、大きな字、矢印 */
+  .btn.oshi{color:#fff;background:#46a297;font-size:1.25rem;font-weight:900;padding:21px 18px;letter-spacing:.1em;
+    display:flex;align-items:center;justify-content:center;gap:12px;transition:background .2s, transform .15s}
+  .btn.oshi::after{content:"→";font-weight:900;font-size:1.3rem;line-height:1;transition:transform .2s}
+  @media (hover:hover){
+    .btn.oshi:hover{background:#51b3a7}
+    .btn.oshi:hover::after{transform:translateX(8px)}
+  }
+  .btn.oshi:active{transform:scale(.98);background:#3f8f86}
+  .btn.oshi:active::after{transform:translateX(8px)}
+  @media (prefers-reduced-motion:reduce){.btn.oshi,.btn.oshi::after{transition:none}}
+  .btn.koi{display:flex;align-items:center;justify-content:center;gap:10px}
+  .btn.koi::after{content:"↓";font-weight:900}
+  .alt{text-align:center;font-size:.88rem;color:rgba(255,255,255,.72);margin:14px 0 0}
+
+  /* ===== 送ったあと ===== */
+  .dan{list-style:none;margin:0;padding:0}
+  .dan li{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid var(--line)}
+  .dan li:last-child{border-bottom:1px solid var(--line)}
+  .dan .n{flex:none;width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:.98rem;margin-top:2px}
+  .dan b{display:block;font-weight:900;line-height:1.6;font-size:1.04rem}
+  .dan span{display:block;font-size:.94rem;color:var(--ink-2);line-height:1.75}
+
+  /* ===== 先月の地図・放送 ===== */
   .map{width:100%;border-radius:var(--r);display:block;background:var(--haiiro);aspect-ratio:1/1;object-fit:cover}
   .note{font-size:.9rem;color:var(--ink-2)}
   .video{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:var(--haiiro)}
   .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
   .links a{text-decoration:none;font-weight:700;padding:10px 16px;border:1.5px solid var(--line);border-radius:999px;font-size:.95rem}
-  .uketoru{display:block;text-align:center;padding:16px;font-weight:700;font-size:1.05rem;letter-spacing:.06em;
-    color:#fff;background:var(--seiji);border-radius:var(--r);text-decoration:none;margin-top:14px}
 
-  /* 奥 */
-  details{border-top:1px solid var(--line);padding:14px 0}
+  /* ===== もっと読む ===== */
+  details{border-top:1px solid var(--line);padding:16px 0}
   details:last-of-type{border-bottom:1px solid var(--line)}
   summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center}
   summary::-webkit-details-marker{display:none}
@@ -80,12 +146,12 @@
   .oku .sign{display:flex;align-items:center;gap:12px;margin-top:14px;color:var(--ink-2);font-size:.9rem}
   .oku .sign img{width:44px;height:44px;border-radius:50%;background:var(--haiiro)}
 
-  footer{padding:30px 0 110px;color:var(--ink-2);font-size:.85rem;border-top:1px solid var(--line);margin-top:30px}
+  footer{padding:30px 0 110px;color:var(--ink-2);font-size:.85rem}
 
-  /* 下に付いてくる「一言を送る」 */
+  /* 下に付いてくる「今月の問いへ」 */
   .sticky{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
     background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line);
-    transform:translateY(110%);transition:transform .25s}
+    transform:translateY(110%);transition:transform .25s;z-index:5}
   .sticky.show{transform:none}
   .sticky a{display:block;max-width:640px;margin:0 auto;text-align:center;padding:14px;color:#fff;background:var(--ai);
     border-radius:var(--r);font-weight:700;letter-spacing:.06em;text-decoration:none}
@@ -93,103 +159,225 @@
 </head>
 <body>
 
-<header class="wrap">
-  <a class="brand" href="/">兼聴義塾</a>
+<!-- ===== 表紙 ===== -->
+<header class="hyoshi">
+  <div class="wrap">
+    <a class="brand" href="/">兼聴義塾</a><span class="yomi">けんちょうぎじゅく</span>
+    <div class="bou"></div>
+    <p class="catch">偏らずに聴き、<br>良いものを選ぶ。</p>
+    <p class="mijika">右か左か、旗では選びません。誰が言ったかではなく、中身で選ぶ。大きな声より、ふだん黙っている声を聴く場です。</p>
+    <div class="nanori">
+      <img src="jukucho-round.png" alt="塾長の似顔絵">
+      <div><b>塾長</b><span>40代、会社員。一人で始めました。</span></div>
+    </div>
+    <a class="btn koi" id="cta" href="#toi">今月の問いへ</a>
+    <a class="yomu" href="#konoba">先に、この場について読む</a>
+  </div>
 </header>
 
-<!-- ===== 1画面目：今月の問い ＋ 一言 ===== -->
-<main class="wrap">
-  <div class="toi" id="toi">
-    <span class="go">第1号の問い</span>
-    <h1 id="toi-text">10年後、いちばん怖いのは何ですか</h1>
-    <p class="hint">一行でいいです。返事はしません。月末に、集まった一言を一枚の地図にして返します。</p>
-    <form id="hitokoto" onsubmit="return sendHitokoto(event)">
-      <textarea id="hitokoto-text" placeholder="ここに一言"></textarea>
-      <button class="send" type="submit">一言を送る</button>
-    </form>
-    <p class="alt">書いた文を持って、送る画面が開きます。開かないときは <a id="form-link" href="#" target="_blank" rel="noopener">こちら</a></p>
+<main>
 
-    <div class="fuda" aria-label="問い、一言、地図の順">
-      <div class="f">問い<small>月に一つ</small></div><div class="arr">→</div>
-      <div class="f">一言<small>一行でいい</small></div><div class="arr">→</div>
-      <div class="f">地図<small>月末に返す</small></div>
+  <!-- ===== この場について ===== -->
+  <section class="band gray" id="konoba">
+    <div class="wrap">
+      <span class="mado">この場について</span>
+      <h2>旗ではなく、中身で選ぶ。</h2>
+      <p>いま、世の中の言葉は極端に振れがちです。右か左か、どちらの旗かで、話が先に決まってしまう。</p>
+      <p>この場は、旗で選びません。右の考えにも、左の考えにも、良いところがあります。<span class="tsuyoi">誰が言ったかではなく、中身で選ぶ。</span></p>
+      <p class="hiki">昔の言葉でいえば「中庸」です。<small>だから、まず聴きます。大きな声より、ふだん黙っている声を。月に一つ問いを置き、届いた一言を一枚にまとめます。</small></p>
     </div>
-  </div>
-
-  <!-- ===== 先月の地図 ===== -->
-  <section id="chizu">
-    <h2>先月の地図</h2>
-    <img class="map" id="map-img" src="map-00.png" alt="地図０号">
-    <p class="note" id="map-note" style="margin-top:12px">
-      地図０号。まだ一言が届いていないので、公開されている調査の数字と、塾長の仮説と反論を下地にした地図です。来月から、あなたの一言が入ります。
-      素材：内閣府「国民生活に関する世論調査」（令和7年8月）、同「社会意識に関する世論調査」（令和7年10月）、日本財団「18歳意識調査」第78回。一言：0件。
-    </p>
   </section>
 
-  <!-- ===== 聴く・読む ===== -->
-  <section id="kiku">
-    <h2>10分で聴ける</h2>
-    <div class="video"><iframe id="yt" src="" title="兼聴義塾 放送" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-    <p class="note" style="margin-top:12px">月のはじめに、塾長が自分の名前で考えを話します。月末に、地図を歩きます。</p>
-    <div class="links">
-      <a id="link-note" href="#" target="_blank" rel="noopener">note（本文と地図）</a>
-      <a id="link-x" href="#" target="_blank" rel="noopener">X（日々の問い）</a>
-      <a id="link-yt" href="#" target="_blank" rel="noopener">YouTube</a>
+  <!-- ===== 地図とは ===== -->
+  <section class="band" id="chizu-toha">
+    <div class="wrap">
+      <span class="mado">月末に返すもの</span>
+      <h2>「地図」とは</h2>
+      <p>届いた一言を、似た声どうしで並べた一枚の絵です。どこに声が集まり、どこで割れたかが、ひと目で分かります。この場では、これを「地図」と呼んでいます。</p>
+      <figure class="mihon" style="background:var(--haiiro);box-shadow:none">
+        <svg viewBox="0 0 330 150" role="img" aria-label="地図の見本。声が集まったところ、割れたところ、少ない声が点の集まりで示される">
+          <g fill="#3f8f86">
+            <circle cx="46" cy="44" r="7"/><circle cx="62" cy="34" r="7"/><circle cx="78" cy="42" r="7"/><circle cx="94" cy="48" r="7"/>
+            <circle cx="54" cy="60" r="7"/><circle cx="70" cy="54" r="7"/><circle cx="86" cy="60" r="7"/><circle cx="102" cy="66" r="7"/>
+            <circle cx="62" cy="76" r="7"/><circle cx="78" cy="72" r="7"/><circle cx="92" cy="80" r="7"/><circle cx="72" cy="90" r="7"/><circle cx="44" cy="72" r="7"/>
+            <circle cx="166" cy="40" r="7"/><circle cx="180" cy="50" r="7"/><circle cx="164" cy="58" r="7"/><circle cx="182" cy="68" r="7"/><circle cx="170" cy="78" r="7"/>
+            <circle cx="230" cy="54" r="7"/><circle cx="244" cy="44" r="7"/><circle cx="248" cy="62" r="7"/><circle cx="234" cy="72" r="7"/><circle cx="252" cy="80" r="7"/>
+            <circle cx="298" cy="60" r="7"/>
+          </g>
+          <line x1="207" y1="30" x2="207" y2="92" stroke="#6b7386" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <g fill="#33415e" font-size="12" font-weight="700" text-anchor="middle">
+            <text x="72" y="128">声が集まったところ</text>
+            <text x="207" y="128">割れたところ</text>
+            <text x="298" y="128">少ない声</text>
+          </g>
+        </svg>
+        <figcaption>見本です。点の一つが、一言です。届いた一言で、月末に本物を作ります。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== 地図があると、何がいいのか ===== -->
+  <section class="band gray">
+    <div class="wrap">
+      <span class="mado">受け取ると</span>
+      <h2>地図があると、何がいいのか</h2>
+      <ul class="yoi">
+        <li><span class="n">1</span><div><b>自分の不安が、どこにあるか分かる。</b><span>同じことを思っている人が多いのか、少ない側なのか。一人で抱えていた不安の位置が見えます。</span></div></li>
+        <li><span class="n">2</span><div><b>もやもやに、名前がつく。</b><span>言葉にならなかった不安が、ほかの人の一言で言葉になります。</span></div></li>
+        <li><span class="n">3</span><div><b>自分と違う声を、同じ紙の上で読める。</b><span>反対側の一言も、少ない声も、同じ重さで載ります。</span></div></li>
+      </ul>
+      <p class="tame"><b>何のために作るのか。</b>黙っている声を、消えない形で残すためです。たまった地図は、一年後にまとめる選択肢のもとになります。</p>
+    </div>
+  </section>
+
+  <!-- ===== 目指していること ===== -->
+  <section class="band">
+    <div class="wrap">
+      <span class="mado">これから</span>
+      <h2>目指していること</h2>
+      <ol class="saki">
+        <li><b>毎月</b><span>問いを一つ置き、届いた一言を一枚の地図にする。ここでは答えを決めません。同じだったことも、割れたことも、少ない声も、そのまま残します。</span></li>
+        <li><b>一年後</b><span>一年分の地図から、どちらの側の考えであっても良いものを選び、暮らしの側から見た選択肢としてまとめて外に出す。</span></li>
+        <li><b>二年後</b><span>地図を読み、自分で問いを立てられる人が、この場から何人も育っている。</span></li>
+        <li><b>三年後</b><span>その人たちが、次の時代のルールを作る側に立っている。</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== しないこと ===== -->
+  <section class="band gray">
+    <div class="wrap">
+      <span class="mado">約束</span>
+      <h2>しないこと</h2>
+      <ul class="shinai">
+        <li>候補を立てない</li>
+        <li>投票を呼びかけない</li>
+        <li>会費も寄付も受けない</li>
+        <li>世代をひとまとめに語らない</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 今月の問い ＋ 一言（ここだけ濃い地） ===== -->
+  <section class="band ai" id="toi">
+    <div class="wrap">
+      <span class="mado">今月の問い（第1号）</span>
+      <h1 id="toi-text">10年後、いちばん怖いのは何ですか</h1>
+      <p class="hint">あなたの一言を聞かせてください。一行でかまいません。名前はいりません。</p>
+      <form id="hitokoto" onsubmit="return sendHitokoto(event)">
+        <textarea id="hitokoto-text" placeholder="ここに一言"></textarea>
+        <button class="btn oshi" type="submit">次へ進む</button>
+      </form>
+      <p class="alt">次の画面で年代を選んで、送信します。画面が開かないときは <a id="form-link" href="#" target="_blank" rel="noopener">こちら</a></p>
+    </div>
+  </section>
+
+  <!-- ===== 送ったあと ===== -->
+  <section class="band">
+    <div class="wrap">
+      <span class="mado">そのあと</span>
+      <h2>送ったあと</h2>
+      <ol class="dan">
+        <li><span class="n">1</span><div><b>返事はしません</b><span>一人ずつにはお返ししません。届いた一言はすべて読みます。</span></div></li>
+        <li><span class="n">2</span><div><b>月末に、一枚にまとめます</b><span>似た声どうしを並べて、どこに集まり、どこで割れたかが見える一枚（地図）にします。</span></div></li>
+        <li><span class="n">3</span><div><b>地図で返します</b><span>このページと放送でお見せします。メールを書いた人には、月末に届きます。</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 先月の地図（画ができるまで隠す：CONFIG.showMap） ===== -->
+  <section class="band" id="chizu" hidden>
+    <div class="wrap">
+      <span class="mado">先月</span>
+      <h2>先月の地図</h2>
+      <img class="map" id="map-img" src="" data-src="map-00.png" alt="地図０号">
+      <p class="note" id="map-note" style="margin-top:12px">
+        地図０号。まだ一言が届いていないので、公開されている調査の数字と、塾長の仮説と反論を下地にした地図です。来月から、あなたの一言が入ります。
+        素材：内閣府「国民生活に関する世論調査」（令和7年8月）、同「社会意識に関する世論調査」（令和7年10月）、日本財団「18歳意識調査」第78回。一言：0件。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 聴く・読む（第1号の動画IDが入るまで隠す） ===== -->
+  <section class="band" id="kiku" hidden>
+    <div class="wrap">
+      <span class="mado">放送</span>
+      <h2>10分で聴ける</h2>
+      <div class="video"><iframe id="yt" src="" title="兼聴義塾 放送" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+      <p class="note" style="margin-top:12px">月のはじめに、塾長が自分の名前で考えを話します。月末に、地図を歩きます。</p>
+      <div class="links">
+        <a id="link-note" href="#" target="_blank" rel="noopener">note（本文と地図）</a>
+        <a id="link-x" href="#" target="_blank" rel="noopener">X（日々の問い）</a>
+        <a id="link-yt" href="#" target="_blank" rel="noopener">YouTube</a>
+      </div>
     </div>
   </section>
 
   <!-- ===== 受け取る ===== -->
-  <section id="uketoru">
-    <h2>月末の地図を受け取る</h2>
-    <p>メールを一つ書いておくと、月末の地図と講義が届きます。一言を送らなくても、受け取るだけでかまいません。</p>
-    <a class="uketoru" id="uketoru-link" href="/uketoru/">受け取る</a>
-    <p class="note" style="margin-top:12px">メールは、月末の地図と講義を送るためにだけ使います。ほかの誰にも渡しません。やめたいときは「やめる」と一言返せば止めます。この場が閉じたら消します。</p>
+  <section class="band gray" id="uketoru">
+    <div class="wrap">
+      <span class="mado">書かなくてもいい</span>
+      <h2>月末の地図を受け取る</h2>
+      <p>メールを一つ書いておくと、月末の地図と講義が届きます。見に来なくても、その月にどんな声が集まり、どこで割れたかが分かります。先月より一つ、知っていることが増えます。</p>
+      <p>一言を送らなくても、受け取るだけでかまいません。</p>
+      <a class="btn ao" id="uketoru-link" href="/uketoru/">受け取る</a>
+      <p class="note" style="margin-top:14px">メールは、月末の地図と講義を送るためにだけ使います。ほかの誰にも渡しません。やめたいときは「やめる」と一言返せば止めます。この場が閉じたら消します。</p>
+    </div>
   </section>
 
-  <!-- ===== 奥 ===== -->
-  <section id="oku">
-    <h2>この場について</h2>
-    <details>
-      <summary>兼聴義塾（けんちょうぎじゅく）とは</summary>
-      <div class="oku">
-        <!-- ▼ 趣意書本文（塾長が書く）をここに。署名は実名＋塾長 -->
-        <p>（趣意書の本文をここに入れる）</p>
-        <div class="sign"><img src="jukucho-round.png" alt=""><span>（署名）　兼聴義塾 塾長</span></div>
-      </div>
-    </details>
-    <details>
-      <summary>守ること</summary>
-      <div class="oku">
-        <!-- ▼ 憲章本文（2026-10-22版）をここに -->
-        <p>（憲章の本文をここに入れる）</p>
-      </div>
-    </details>
-    <details>
-      <summary>連絡先の扱い</summary>
-      <div class="oku">
-        <p>メールは書かなくて構いません。書いた場合は、月末の地図と講義を送るためにだけ使います。ほかの誰にも渡しません。やめたいときは「やめる」と一言返せば止めます。この場が閉じたら消します。</p>
-        <p>この場への連絡：<a href="mailto:kencho.gijuku@gmail.com">kencho.gijuku@gmail.com</a>（個別の返事はしないことがあります）</p>
-      </div>
-    </details>
+  <!-- ===== もっと読む ===== -->
+  <section class="band" id="oku">
+    <div class="wrap">
+      <h2>もっと読む</h2>
+      <!-- 趣意書：本文が入るまで隠す（CONFIG.showShuisho） -->
+      <details id="d-shuisho" hidden>
+        <summary>兼聴義塾（けんちょうぎじゅく）とは</summary>
+        <div class="oku">
+          <!-- ▼ 趣意書本文（塾長が書く）をここに -->
+          <p>（趣意書の本文をここに入れる）</p>
+          <div class="sign"><img src="jukucho-round.png" alt=""><span>兼聴義塾 塾長</span></div>
+        </div>
+      </details>
+      <!-- 憲章：本文が入るまで隠す（CONFIG.showKensho） -->
+      <details id="d-kensho" hidden>
+        <summary>守ること</summary>
+        <div class="oku">
+          <!-- ▼ 憲章本文をここに -->
+          <p>（憲章の本文をここに入れる）</p>
+        </div>
+      </details>
+      <details>
+        <summary>連絡先の扱い</summary>
+        <div class="oku">
+          <p>メールは書かなくて構いません。書いた場合は、月末の地図と講義を送るためにだけ使います。ほかの誰にも渡しません。やめたいときは「やめる」と一言返せば止めます。この場が閉じたら消します。</p>
+          <p>この場への連絡：<a href="mailto:kencho.gijuku@gmail.com">kencho.gijuku@gmail.com</a>（個別の返事はしないことがあります）</p>
+        </div>
+      </details>
+    </div>
   </section>
 </main>
 
-<footer class="wrap">
-  地図はAIが整理し、運営が確認した。使った手順はnoteで公開する。<br>
-  © 兼聴義塾
+<footer>
+  <div class="wrap">
+    地図はAIが整理し、運営が確認した。使った手順はnoteで公開する。<br>
+    © 兼聴義塾
+  </div>
 </footer>
 
-<div class="sticky" id="sticky"><a href="#toi">一言を送る</a></div>
+<div class="sticky" id="sticky"><a href="#toi">今月の問いへ</a></div>
 
 <script>
 /* ===== 月替わりで差し替える箇所はここだけ ===== */
 const CONFIG = {
   formUrl:  "https://docs.google.com/forms/d/e/1FAIpQLSd9M7u1vn9ecj4qgBPOrcUMjMZn2l5kMrVcK6_EZmDY8CjWeQ/viewform",     // 今月の「一言」フォームの viewform URL（…/viewform）
   entryId:  "139102450",     // 設問1（問い）の entry.XXXXXXXXX の数字
-  videoId:  "VIDEO_ID",     // 最新回の YouTube 動画ID
+  videoId:  "VIDEO_ID",     // 最新回の YouTube 動画ID（入れると「10分で聴ける」が出る）
   noteUrl:  "https://note.com/kencho_gijuku",
   xUrl:     "https://x.com/kencho_gijuku",
   ytUrl:    "https://www.youtube.com/@kencho_gijuku",
+  showMap:     false,   // map-00.png を置いたら true（「先月の地図」が出る）
+  showShuisho: false,   // 趣意書の本文を入れたら true
+  showKensho:  false,   // 憲章の本文を入れたら true
 };
 /* ============================================ */
 
@@ -208,15 +396,28 @@ document.getElementById("form-link").href = formLink("");
 document.getElementById("link-note").href = CONFIG.noteUrl;
 document.getElementById("link-x").href = CONFIG.xUrl;
 document.getElementById("link-yt").href = CONFIG.ytUrl;
+
+/* 中身があるものだけ出す */
+if (CONFIG.showMap) {
+  const m = document.getElementById("map-img"); m.src = m.dataset.src;
+  document.getElementById("chizu").hidden = false;
+}
 if (CONFIG.videoId && CONFIG.videoId !== "VIDEO_ID") {
   document.getElementById("yt").src = "https://www.youtube-nocookie.com/embed/" + CONFIG.videoId;
-} else {
-  document.getElementById("kiku").querySelector(".video").style.display = "none";
+  document.getElementById("kiku").hidden = false;
 }
-/* 入力欄が画面から外れたら、下に「一言を送る」を出す */
+if (CONFIG.showShuisho) document.getElementById("d-shuisho").hidden = false;
+if (CONFIG.showKensho)  document.getElementById("d-kensho").hidden = false;
+
+/* 表紙のボタンも入力欄も画面にないときだけ、下に「今月の問いへ」を出す */
 const st = document.getElementById("sticky");
-new IntersectionObserver(([en]) => st.classList.toggle("show", !en.isIntersecting), {threshold: 0})
-  .observe(document.getElementById("hitokoto"));
+const seen = new Map();
+const io = new IntersectionObserver(es => {
+  es.forEach(en => seen.set(en.target, en.isIntersecting));
+  st.classList.toggle("show", ![...seen.values()].some(Boolean));
+}, {threshold: 0});
+io.observe(document.getElementById("cta"));
+io.observe(document.getElementById("toi"));
 </script>
 </body>
 </html>
