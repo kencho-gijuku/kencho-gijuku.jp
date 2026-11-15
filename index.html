@@ -114,6 +114,10 @@
   .btn.oshi:active{transform:scale(.98);background:#3f8f86}
   .btn.oshi:active::after{transform:translateX(8px)}
   @media (prefers-reduced-motion:reduce){.btn.oshi,.btn.oshi::after{transition:none}}
+  /* 一文字入ったら、矢印が一度だけ右へ動く */
+  @keyframes yobi{0%{transform:translateX(0)}40%{transform:translateX(10px)}100%{transform:translateX(0)}}
+  .btn.oshi.yobi::after{animation:yobi .7s ease-out 1}
+  @media (prefers-reduced-motion:reduce){.btn.oshi.yobi::after{animation:none}}
   .btn.koi{display:flex;align-items:center;justify-content:center;gap:10px}
   .btn.koi::after{content:"↓";font-weight:900}
   .alt{text-align:center;font-size:.88rem;color:rgba(255,255,255,.72);margin:14px 0 0}
@@ -474,6 +478,19 @@ const io = new IntersectionObserver(es => {
 }, {threshold: 0});
 io.observe(document.getElementById("cta"));
 io.observe(document.getElementById("toi"));
+
+/* 一文字入ったら、「次へ進む」の矢印を一度だけ動かす */
+(function(){
+  const ta = document.getElementById("hitokoto-text");
+  const btn = document.querySelector("#hitokoto .btn.oshi");
+  if (!ta || !btn) return;
+  let done = false;
+  ta.addEventListener("input", function(){
+    if (done || !ta.value.trim()) return;
+    done = true;
+    btn.classList.add("yobi");
+  });
+})();
 </script>
 </body>
 </html>
